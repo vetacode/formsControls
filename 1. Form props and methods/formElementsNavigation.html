@@ -3,7 +3,7 @@
 document.forms.my; // the form with name="my"
 document.forms[0]; // the first form in the document 
 
-form.elements[name] is a collection
+formEl.elements[name] is a collection
 
 -->
 
@@ -28,14 +28,15 @@ form.elements[name] is a collection
 
       // get the element
       let elem = form.elements.one; // <input name="one"> element
+      console.log('elem is:', elem);
 
-      alert(elem.value); // 1
+      console.log(elem.value); // 1
 
       let form2 = document.forms[0];
 
       let ageElems = form2.elements.age;
 
-      alert(ageElems[0]); // [object HTMLInputElement]
+      console.log('ageElems is:', ageElems[0]); // [object HTMLInputElement]
     </script>
   </body>
 </html>
