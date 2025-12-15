@@ -1,7 +1,11 @@
 <!-- Document forms are members of the special collection: document.forms.
 
 document.forms.my; // the form with name="my"
-document.forms[0]; // the first form in the document -->
+document.forms[0]; // the first form in the document 
+
+form.elements[name] is a collection
+
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +18,8 @@ document.forms[0]; // the first form in the document -->
     <form name="my">
       <input name="one" value="1" />
       <input name="two" value="2" />
+      <input type="radio" name="age" value="10" />
+      <input type="radio" name="age" value="20" />
     </form>
 
     <script>
@@ -24,6 +30,12 @@ document.forms[0]; // the first form in the document -->
       let elem = form.elements.one; // <input name="one"> element
 
       alert(elem.value); // 1
+
+      let form2 = document.forms[0];
+
+      let ageElems = form2.elements.age;
+
+      alert(ageElems[0]); // [object HTMLInputElement]
     </script>
   </body>
 </html>
