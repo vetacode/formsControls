@@ -44,35 +44,82 @@ P.P.S. Don’t modify HTML/CSS, the approach should be generic and work with any
     <script>
       // ...your code...
 
-      mouse.tabIndex = 0; //supaya urutan fungsi tab sesuai dengan urutan alami DOM
+      // mouse.tabIndex = 0; //supaya urutan fungsi tab sesuai dengan urutan alami DOM
 
-      mouse.onclick = function () {
-        this.style.left = this.getBoundingClientRect().left + 'px';
-        this.style.top = this.getBoundingClientRect().top + 'px';
+      // mouse.onclick = function () {
+      //   this.style.left = this.getBoundingClientRect().left + 'px';
+      //   this.style.top = this.getBoundingClientRect().top + 'px';
 
-        this.style.position = 'fixed';
-      };
+      //   this.style.position = 'fixed';
+      // };
 
-      mouse.onkeydown = function (e) {
+      // mouse.onkeydown = function (e) {
+      //   switch (e.key) {
+      //     case 'ArrowLeft':
+      //       this.style.left =
+      //         parseInt(this.style.left) - this.offsetWidth + 'px';
+      //       return false;
+      //     case 'ArrowUp':
+      //       this.style.top =
+      //         parseInt(this.style.top) - this.offsetHeight + 'px';
+      //       return false;
+      //     case 'ArrowRight':
+      //       this.style.left =
+      //         parseInt(this.style.left) + this.offsetWidth + 'px';
+      //       return false;
+      //     case 'ArrowDown':
+      //       this.style.top =
+      //         parseInt(this.style.top) + this.offsetHeight + 'px';
+      //       return false;
+      //   }
+      // };
+
+      //REFACTORING:
+      const mouse = document.getElementById('mouse');
+
+      // supaya bisa menerima keyboard event
+      mouse.tabIndex = 0;
+
+      mouse.addEventListener('focus', () => {
+        //event 'click' diganti dgn 'focus' agar bs lgsg inisiasi saat focus (baik dari TAB maupun dari click mouse.
+        if (!mouse.style.left || !mouse.style.top) {
+          const rect = mouse.getBoundingClientRect();
+
+          mouse.style.left = rect.left + 'px';
+          mouse.style.top = rect.top + 'px';
+          mouse.style.position = 'fixed';
+
+          // langsung fokus setelah diklik
+          mouse.focus();
+        }
+      });
+
+      mouse.addEventListener('keydown', (e) => {
+        let left = parseInt(mouse.style.left);
+        let top = parseInt(mouse.style.top);
+
         switch (e.key) {
           case 'ArrowLeft':
-            this.style.left =
-              parseInt(this.style.left) - this.offsetWidth + 'px';
-            return false;
+            left -= mouse.offsetWidth;
+            break;
           case 'ArrowUp':
-            this.style.top =
-              parseInt(this.style.top) - this.offsetHeight + 'px';
-            return false;
+            top -= mouse.offsetHeight;
+            break;
           case 'ArrowRight':
-            this.style.left =
-              parseInt(this.style.left) + this.offsetWidth + 'px';
-            return false;
+            left += mouse.offsetWidth;
+            break;
           case 'ArrowDown':
-            this.style.top =
-              parseInt(this.style.top) + this.offsetHeight + 'px';
-            return false;
+            top += mouse.offsetHeight;
+            break;
+          default:
+            return;
         }
-      };
+
+        mouse.style.left = left + 'px';
+        mouse.style.top = top + 'px';
+
+        e.preventDefault();
+      });
     </script>
   </body>
 </html>
