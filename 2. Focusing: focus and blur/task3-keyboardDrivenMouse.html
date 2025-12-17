@@ -44,7 +44,7 @@ P.P.S. Don’t modify HTML/CSS, the approach should be generic and work with any
     <script>
       // ...your code...
 
-      mouse.tabIndex = 0;
+      mouse.tabIndex = 0; //supaya urutan fungsi tab sesuai dengan urutan alami DOM
 
       mouse.onclick = function () {
         this.style.left = this.getBoundingClientRect().left + 'px';
