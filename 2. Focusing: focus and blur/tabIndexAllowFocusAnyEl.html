@@ -10,7 +10,10 @@ There are two special values:
 
 Usually it’s used to make an element focusable, but keep the default switching order. To make an element a part of the form on par with <input>.
 
-2. tabindex="-1" allows only programmatic focusing on an element. The Tab key ignores such elements, but method elem.focus() works. -->
+2. tabindex="-1" allows only programmatic focusing on an element. The Tab key ignores such elements, but method elem.focus() works. 
+
+NOTES: Can also use elem.tabIndex property. That has the same effect.
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,10 +27,12 @@ Usually it’s used to make an element focusable, but keep the default switching
     that many subsequent Tabs can move the focus out of the iframe in the
     example.
     <ul>
+      <!-- Normally, <li> does not support focusing, but tabindex full enables it, along with events and styling with :focus. -->
       <li tabindex="1">One</li>
       <li tabindex="0">Zero</li>
       <li tabindex="2">Two</li>
       <li tabindex="-1">Minus one</li>
+      <!-- The order is like this: 1 - 2 - 0. -->
     </ul>
 
     <style>
