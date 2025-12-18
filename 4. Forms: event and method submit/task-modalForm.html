@@ -113,7 +113,7 @@ P.S. The source document has HTML/CSS for the form with fixed positioning, but i
 
       function hideCover() {
         document.getElementById('cover-div').remove();
-        document.body.style.overflowY = '';
+        document.body.style.overflowY = ''; //hide scroll Y
       }
 
       function showPrompt(text, callback) {
@@ -125,35 +125,38 @@ P.S. The source document has HTML/CSS for the form with fixed positioning, but i
 
         function complete(value) {
           hideCover();
-          container.style.display = 'none';
-          document.onkeydown = null;
+          container.style.display = 'none'; //hide modal
+          document.onkeydown = null; //hapus listener keyboard
           callback(value);
         }
 
         form.onsubmit = function () {
-          let value = form.text.value;
-          if (value == '') return false; // ignore empty submit
+          let value = form.text.value; //ambil isi input dari user
+          if (value == '') return false; // ignore empty submit. Jika kosong → jangan tutup modal
 
           complete(value);
-          return false;
+          return false; //cegah reload halaman
         };
 
+        //Handle cancel button
         form.cancel.onclick = function () {
-          complete(null);
+          complete(null); //tutup modal tanpa value (null)
         };
 
         document.onkeydown = function (e) {
           if (e.key == 'Escape') {
-            complete(null);
+            complete(null); //jika tekan ESC => tutup modal
           }
         };
 
+        //Accessibility: trap focus dgn TAB
         let lastElem = form.elements[form.elements.length - 1];
         let firstElem = form.elements[0];
 
         lastElem.onkeydown = function (e) {
           if (e.key == 'Tab' && !e.shiftKey) {
-            firstElem.focus();
+            //Jika TAB ditekan di elemen terakhir, Fokus kembali ke elemen pertama
+            firstElem.focus(); // shg mencegah Fokus keluar dari modal
             return false;
           }
         };
@@ -165,8 +168,8 @@ P.S. The source document has HTML/CSS for the form with fixed positioning, but i
           }
         };
 
-        container.style.display = 'block';
-        form.elements.text.focus();
+        container.style.display = 'block'; //show modal
+        form.elements.text.focus(); //Cursor langsung ke input
       }
 
       document.getElementById('show-button').onclick = function () {
