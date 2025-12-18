@@ -149,10 +149,19 @@ P.S. The source document has HTML/CSS for the form with fixed positioning, but i
           }
         };
 
-        //Accessibility: trap focus dgn TAB
+        //Accessibility: beri focus dgn TAB trap (cegah focus TAB keluar modal)
         let lastElem = form.elements[form.elements.length - 1];
-        let firstElem = form.elements[0];
+        let firstElem = form.elements[0]; //<input name='text'>. Coz form.elements hanya berisi form control, yaitu elemen yang berinteraksi dengan user.
 
+        //VERSI MODERN
+        // lastElem.addEventListener('keydown', function (e) {
+        //   if (e.key === 'Tab' && !e.shiftKey) {
+        //     e.preventDefault(); // Memastikan sejak awal default behavior dibatalkan. cegah tab keluar
+        //     firstElem.focus(); // ganti behavior. putar fokus
+        //   }
+        // });
+
+        //VERSI OLD SCHOOL
         lastElem.onkeydown = function (e) {
           if (e.key == 'Tab' && !e.shiftKey) {
             //Jika TAB ditekan di elemen terakhir, Fokus kembali ke elemen pertama
